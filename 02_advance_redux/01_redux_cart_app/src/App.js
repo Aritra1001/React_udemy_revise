@@ -5,6 +5,8 @@ import Products from "./components/Shop/Products";
 import { useSelector, useDispatch } from "react-redux";
 import { uiActions } from "./store/ui-slice";
 import Notification from "./components/UI/Notification";
+import { sendCartData } from "./store/cart-actions";
+import { getCartData } from "./store/cart-actions";
 
 let isInitial = true;
 
@@ -15,49 +17,57 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const sendCartData = async () => {
-      dispatch(
-        uiActions.showNotification({
-          status: "Sending...",
-          title: "Sending!",
-          message: "Sending Cart Data..",
-        })
-      );
-      const response = await fetch(
-        "https://cart-b3957-default-rtdb.firebaseio.com/cart.json",
-        {
-          method: "PUT",
-          body: JSON.stringify(cart),
-        }
-      );
+    dispatch(getCartData());
+  }, [dispatch]);
 
-      if (!response.ok) {
-        throw new Error("Sending Cart Data Failed");
-      }
+  // One way of executing side effects or async tasks i.e inside component
+  useEffect(() => {
+    // const sendCartData = async () => {
+    // dispatch(
+    //   uiActions.showNotification({
+    //     status: "Sending...",
+    //     title: "Sending!",
+    //     message: "Sending Cart Data..",
+    //   })
+    // );
+    // const response = await fetch(
+    //   "https://cart-b3957-default-rtdb.firebaseio.com/cart.json",
+    //   {
+    //     method: "PUT",
+    //     body: JSON.stringify(cart),
+    //   }
+    // );
 
-      dispatch(
-        uiActions.showNotification({
-          status: "success",
-          title: "Successful!",
-          message: "Cart Data Sent Successfully..",
-        })
-      );
-    };
+    // if (!response.ok) {
+    //   throw new Error("Sending Cart Data Failed");
+    // }
 
-    if(isInitial){
+    // dispatch(
+    //   uiActions.showNotification({
+    //     status: "success",
+    //     title: "Successful!",
+    //     message: "Cart Data Sent Successfully..",
+    //   })
+    // );
+    // };
+
+    if (isInitial) {
       isInitial = false;
       return;
     }
 
-    sendCartData().catch((err) => {
-      dispatch(
-        uiActions.showNotification({
-          status: "error",
-          title: "Some error occurred",
-          message: "Cart data not sent...",
-        })
-      );
-    });
+    if (cart.changed) {
+      dispatch(sendCartData(cart));
+    }
+    // sendCartData().catch((err) => {
+    //   dispatch(
+    //     uiActions.showNotification({
+    //       status: "error",
+    //       title: "Some error occurred",
+    //       message: "Cart data not sent...",
+    //     })
+    //   );
+    // });
   }, [cart, dispatch]);
 
   return (
@@ -92,4 +102,11 @@ export default App;
  * we must follow these steps
  * 1. We can first do the data transformation work on the frontend in the reducer and let redux update its store.
  * 2. We send the request to the server from the component ProductItem.js file or App.js file.
+ */
+
+/**We can perform async tasks inside thunks.
+ * Thunk means a piece of code that does some delayed work.
+ * Thunks are a pattern of writing functions with logic inside that can interact with a redux store's dispatch and getState method.
+ * An action creator function (thunk) is a function that does not return the action itself instead another
+ * function that returns the action eventually.
  */
