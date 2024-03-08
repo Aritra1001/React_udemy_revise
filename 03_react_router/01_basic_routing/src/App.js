@@ -10,6 +10,7 @@ import HomePage from "./Pages/HomePage";
 import ProductPage from "./Pages/ProductPage";
 import RootLayout from "./Pages/Root";
 import ErrorPage from "./Pages/ErrorPage";
+import ProductDetail from "./Pages/ProductDetail";
 
 /**createBrowserRouter function allows us to define our routes that we want in our appliation
  * To this function we pass an array of route definition objects
@@ -37,6 +38,8 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <HomePage /> },
       { path: "/products", element: <ProductPage /> },
+      { path: '/products/:productId', element: <ProductDetail/>}
+      // Using /: we define a dynamic value in the route, which can be accessed using useParams hook.
     ],
   },
 ]);
