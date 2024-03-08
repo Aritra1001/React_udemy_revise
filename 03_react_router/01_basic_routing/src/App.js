@@ -36,10 +36,14 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     errorElement: <ErrorPage/>,
     children: [
-      { path: "/", element: <HomePage /> },
-      { path: "/products", element: <ProductPage /> },
-      { path: '/products/:productId', element: <ProductDetail/>}
+      // { path: "", element: <HomePage /> },
+      { index: true, element: <HomePage /> }, //index route will be loaded when the parent route is active.
+      { path: "products", element: <ProductPage /> },
+      { path: 'products/:productId', element: <ProductDetail/>}
       // Using /: we define a dynamic value in the route, which can be accessed using useParams hook.
+      // The paths defined here are absolute paths, since they begin with '/', this means they are always seen from after the domain name.
+      // The paths that does not start with '/' are relative paths.
+      // The absolute paths will be appneded diretly after the domain name, unlike relative paths which are appended after the currently active route
     ],
   },
 ]);
