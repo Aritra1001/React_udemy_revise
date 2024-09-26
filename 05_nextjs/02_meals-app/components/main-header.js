@@ -1,25 +1,31 @@
 import Link from "next/link";
 import LogoImg from "@/assets/logo.png";
+import styles from "./main-header.module.css";
+import Image from "next/image";
+import MainHeaderBackground from "./main-header-background";
 
 export default function MainHeader() {
   return (
     <>
-      <Link href="/">
-        {/* We have put LogoImg.src as in LogoImg we will get an object in which we will have the directory in the src key */}
-        <img src={LogoImg.src} alt="a plate containing many dishes" />
-        Next Level Food
-      </Link>
+      <MainHeaderBackground/>
+      <header className={styles.header}>
+        <Link href="/" className={styles.logo}>
+          {/* We have put LogoImg.src as in LogoImg we will get an object in which we will have the directory in the src key */}
+          <Image src={LogoImg} alt="a plate containing many dishes" />
+          Next Level Food
+        </Link>
 
-      <nav>
-        <ul>
+        <nav className={styles.nav}>
+          <ul>
             <li>
-                <Link href="/meals">Browse Meals</Link>
+              <Link href="/meals">Browse Meals</Link>
             </li>
             <li>
-                <Link href="/community">Foodies Community</Link>
+              <Link href="/community">Foodies Community</Link>
             </li>
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      </header>
     </>
   );
 }
