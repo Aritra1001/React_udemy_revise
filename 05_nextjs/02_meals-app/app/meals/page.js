@@ -1,14 +1,21 @@
-import Link from 'next/link'
-import React from 'react'
+import Link from "next/link";
+import React from "react";
+import classes from './page.module.css';
+import MealsGrid from "@/components/meal/meals-grid";
 
-const page = () => {
-  return (
-    <>
-    <h1>Meals Page</h1>
-    <p><Link href="/meals/meal-1">Meal-1</Link></p>
-    <p><Link href="/meals/meal-2">Meal-2</Link></p>
-    </>
-  )
-}
+const MealsPage = () => {
+  return <>
+      <header className={classes.header}>
+        <h1>Delicious meals, created <span className={classes.highlight}>by you</span></h1>
+        <p>Choose your favourite recipe and cook it yourself. It is fun!!</p>
+        <p className={classes.cta}>
+          <Link href='/meals/share'>Share your favorite recipe</Link>
+        </p>
+      </header>
+      <main className={classes.main}>
+        <MealsGrid meals={[]}/>
+      </main>
+  </>;
+};
 
-export default page
+export default MealsPage;
