@@ -1,12 +1,16 @@
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
 import classes from "./page.module.css";
 import MealsGrid from "@/components/meal/meals-grid";
 import { getMeals } from "@/lib/meals";
 
-// Serer components cam be converted to async/await.
-const MealsPage = async () => {
-  let meals = await getMeals();
+// Server components can be converted to async/await.
+const Meals = async () => {
+  const meals = await getMeals();
+  return <MealsGrid meals={meals} />;
+};
+
+const MealsPage = () => {
   return (
     <>
       <header className={classes.header}>
@@ -20,7 +24,10 @@ const MealsPage = async () => {
         </p>
       </header>
       <main>
-        <MealsGrid meals={meals} />
+        {/* The data fetching part in our code will trigger the Suspense and it will show the fallback text until the data is fetched */}
+        <Suspense fallback={<p className={classes.loading}>Fetching Meals...</p>}>
+          <Meals />
+        </Suspense>
       </main>
     </>
   );
