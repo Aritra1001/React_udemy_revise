@@ -11,3 +11,7 @@ export const getMeals = async() => {
     // get() - for getting single row of the data
     // run() - when we are changing data
 }
+
+export const getMealDetails = (slug) => {
+    return db.prepare("SELECT * FROM meals WHERE slug = ?").get(slug);
+}
