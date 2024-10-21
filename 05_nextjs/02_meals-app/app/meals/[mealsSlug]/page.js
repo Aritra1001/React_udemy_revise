@@ -2,12 +2,18 @@ import React from 'react'
 import classes from "./page.module.css";
 import Image from 'next/image';
 import { getMealDetails } from '@/lib/meals';
+import { notFound } from 'next/navigation';
 
 // Every page js file receives a special params prop from next js.
 
 const page = ({params}) => {
 
   const meal = getMealDetails(params.mealsSlug);
+
+  if(!meal){
+    notFound(); //when the route is not navigbale, this function will go to the nearest error page or not-found page if defined.
+  }
+
   const instructions = meal.instructions.replace(/\n/g, '<br/>')
 
   return (
