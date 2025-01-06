@@ -1,10 +1,10 @@
 import React from "react";
 
-const TabButton = ({ children }) => {
+const TabButton = ({ children, onClick }) => {
   return (
     <>
       <li>
-        <button>{children}</button>
+        <button onClick={onClick}>{children}</button>
       </li>
     </>
   );

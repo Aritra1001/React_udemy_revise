@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./components/header/Header";
 import CoreConcepts from "./components/coreConcepts/CoreConcepts";
 import { CORE_CONCEPTS } from "./data";
 import TabButton from "./components/tabButton/TabButton";
+import { EXAMPLES } from "./data";
 
 function App() {
+  const [selectedTab, setSelectedTab] = useState("components");
+
+  const handleTabClick = (selectedButton) => {
+    console.log(selectedButton);
+    setSelectedTab(selectedButton);
+  };
+
   return (
     <div>
       <Header />
@@ -25,12 +33,22 @@ function App() {
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton >Components</TabButton>
-            <TabButton>JSX</TabButton>
-            <TabButton>States</TabButton>
-            <TabButton>Props</TabButton>
+            <TabButton onClick={() => handleTabClick("components")}>
+              Components
+            </TabButton>
+            <TabButton onClick={() => handleTabClick("jsx")}>JSX</TabButton>
+            <TabButton onClick={() => handleTabClick("states")}>
+              States
+            </TabButton>
+            <TabButton onClick={() => handleTabClick("props")}>Props</TabButton>
           </menu>
-          Some Dynamic Content
+          <div id="tab-content">
+            <h3>{EXAMPLES[selectedTab]?.title}</h3>
+            <p>{EXAMPLES[selectedTab]?.description}</p>
+            <pre>
+              <code>{EXAMPLES[selectedTab]?.code}</code>
+            </pre>
+          </div>
         </section>
       </main>
     </div>
