@@ -6,12 +6,25 @@ import TabButton from "./components/tabButton/TabButton";
 import { EXAMPLES } from "./data";
 
 function App() {
-  const [selectedTab, setSelectedTab] = useState("components");
+  const [selectedTab, setSelectedTab] = useState(null);
 
   const handleTabClick = (selectedButton) => {
-    console.log(selectedButton);
     setSelectedTab(selectedButton);
   };
+
+  // another alternative for rendering contents condtionally
+  // let topicContent = <p>Please select a topic</p>;
+  // if (selectedTab) {
+  //   topicContent = (
+  //     <div id="tab-content">
+  //       <h3>{EXAMPLES[selectedTab]?.title}</h3>
+  //       <p>{EXAMPLES[selectedTab]?.description}</p>
+  //       <pre>
+  //         <code>{EXAMPLES[selectedTab]?.code}</code>
+  //       </pre>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div>
@@ -42,13 +55,15 @@ function App() {
             </TabButton>
             <TabButton onClick={() => handleTabClick("props")}>Props</TabButton>
           </menu>
-          <div id="tab-content">
+          {/* {topicContent} */}
+          {!selectedTab && <p>Please select a topic</p>}
+          {selectedTab && <div id="tab-content">
             <h3>{EXAMPLES[selectedTab]?.title}</h3>
             <p>{EXAMPLES[selectedTab]?.description}</p>
             <pre>
               <code>{EXAMPLES[selectedTab]?.code}</code>
             </pre>
-          </div>
+          </div>}
         </section>
       </main>
     </div>
