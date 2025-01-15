@@ -2,6 +2,7 @@ import React from "react";
 import './CoreConcepts.css';
 
 export default function CoreConcepts(props) {
+  console.log("here");
   return (
     <li>
       <img src={props.image} alt={props.description} />
