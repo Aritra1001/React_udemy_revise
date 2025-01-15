@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import TabButton from "./tabButton/TabButton";
 import { EXAMPLES } from "../data";
+import Section from "./Section";
 
 const Example = () => {
 
@@ -27,8 +28,7 @@ const Example = () => {
 
   return (
     <>
-      <section id="examples">
-        <h2>Examples</h2>
+      <Section id="examples" title="Examples">
         <menu>
           <TabButton
             isSelected={selectedTab == "components"}
@@ -66,7 +66,7 @@ const Example = () => {
             </pre>
           </div>
         )}
-      </section>
+      </Section>
     </>
   );
 };
